@@ -1,0 +1,5 @@
+ssh-slaves:latest
+kubernetes:latest
+workflow-aggregator:latest
+configuration-as-code:latest
+configuration-as-code-support:latest
