@@ -113,7 +113,7 @@ spec:
       serviceAccountName: jenkins
       containers:
         - name: jenkins
-          image: ds/jenkins-v3:2.143
+          image: ds/jenkins-v3:2.146
           env:
             - name: JAVA_OPTS
               value: -Djenkins.install.runSetupWizard=false -Dhudson.slaves.NodeProvisioner.initialDelay=0
