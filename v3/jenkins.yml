@@ -43,43 +43,10 @@ metadata:
 data:
   configuration-as-code.yml: |
     jenkins:
-      systemMessage: "Welcome to Jenkins - configured with code!"
+      systemMessage: "Stateless Jenkins w/ JCasC!"
+      labelString: "jenkins-master"
       mode: EXCLUSIVE
       numExecutors: 3
-      location:
-        url: "http://192.168.99.100:30123/"
-      securityRealm:
-        local:
-          allowSignup: false
-          users:
-            - id: admin
-              password: root
-      authorizationStrategy:
-        globalMatrix:
-          grantedPermissions:
-            - "Overall/Read:anonymous"
-            - "Job/Read:anonymous"
-            - "View/Read:anonymous"
-            - "Overall/Administer:authenticated"
-      clouds:
-        - kubernetes:
-            name: "kubernetes"
-            serverUrl: "https://192.168.99.100:8443/"
-            jenkinsUrl: "http://172.17.0.6:8080/"
-            templates:
-              - name: "jenkins-slave"
-                label: "jenkins-slave"
-                containers:
-                  - name: "jenkins-slave"
-                    image: "jenkinsci/jnlp-slave:latest"
-                    workingDir: "/home/jenkins"
-                    ttyEnabled: true
-                    command: "/bin/sh -c"
-                    args: "cat"
-                nodeUsageMode: "NORMAL"
-    security:
-      remotingCLI:
-        enabled: false
     tool:
       git:
         installations:
@@ -87,14 +54,35 @@ data:
           name: "Default"
     jobs:
       - script: >
-          pipelineJob('configuration-as-code') {
-              pineline {
-                  stages {
-                      stage("Deploy") {
-                          sh 'sleep 30'
-                      }
-                  }
+          pipelineJob('CasC - DSL Scripted') {
+            definition {
+              cps {
+                script('''
+          properties([parameters([booleanParam(defaultValue: false, description: '', name: 'isRelease')])])
+
+          node("jenkins-master") {
+            stage("checkout") {
+              echo "Checking out..."
+            }
+
+            stage("build") {
+              echo "Building..."
+              sleep 2
+            }
+
+            stage("release") {
+              if(!params?.isRelease) {
+                echo "Release build is not enabled"
+              } else {
+                echo "Release build enabled. Running release."
+                sleep 15
               }
+            }
+          }
+                ''')
+                sandbox()
+              }
+            }
           }
 
 ---
