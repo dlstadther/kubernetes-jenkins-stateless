@@ -106,7 +106,8 @@ spec:
             - name: JAVA_OPTS
               value: -Djenkins.install.runSetupWizard=false -Dhudson.slaves.NodeProvisioner.initialDelay=0
             - name: CASC_JENKINS_CONFIG
-              value: /var/jenkins_config/configuration-as-code.yml
+              # https://github.com/jenkinsci/configuration-as-code-plugin/issues/425
+              value: /var/jenkins_config/..data/configuration-as-code.yml
           ports:
             - name: http-port
               containerPort: 8080
