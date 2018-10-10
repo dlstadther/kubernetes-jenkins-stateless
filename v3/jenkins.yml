@@ -48,6 +48,19 @@ data:
       numExecutors: 3
       location:
         url: "http://192.168.99.100:30123/"
+      securityRealm:
+        local:
+          allowSignup: false
+          users:
+            - id: admin
+              password: root
+      authorizationStrategy:
+        globalMatrix:
+          grantedPermissions:
+            - "Overall/Read:anonymous"
+            - "Job/Read:anonymous"
+            - "View/Read:anonymous"
+            - "Overall/Administer:authenticated"
       clouds:
         - kubernetes:
             name: "kubernetes"
@@ -64,6 +77,9 @@ data:
                     command: "/bin/sh -c"
                     args: "cat"
                 nodeUsageMode: "NORMAL"
+    security:
+      remotingCLI:
+        enabled: false
     tool:
       git:
         installations:
