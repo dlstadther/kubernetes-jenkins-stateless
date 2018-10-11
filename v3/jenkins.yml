@@ -47,6 +47,30 @@ data:
       labelString: "jenkins-master"
       mode: EXCLUSIVE
       numExecutors: 3
+      crumbIssuer: "standard"
+      remotingSecurity:
+        enabled: true
+      securityRealm:
+        local:
+          allowsSignup: false
+          users:
+            - id: admin
+              password: root
+            - id: dillon
+              password: doge
+      authorizationStrategy:
+        globalMatrix:
+          grantedPermissions:
+            - "Overall/Read:authenticated"
+            - "Job/Read:authenticated"
+            - "View/Read:authenticated"
+            - "Overall/Administer:admin"
+    security:
+      remotingCLI:
+        enabled: false
+    unclassified:
+      location:
+        url: http://192.168.99.100:30123/
     tool:
       git:
         installations:
