@@ -65,6 +65,23 @@ data:
             - "Job/Read:authenticated"
             - "View/Read:authenticated"
             - "Overall/Administer:admin"
+      clouds:
+        - kubernetes:
+            name: "kubernetes"
+            serverUrl: "https://192.168.99.100:8443/"
+            # this jenkinsUrl isn't guaranteed; can (and will) change
+            jenkinsUrl: "http://172.17.0.5:8080/"
+            templates:
+              - name: "jenkins-slave"
+                label: "jenkins-slave"
+                containers:
+                  - name: "jenkins-slave"
+                    image: "jenkinsci/jnlp-slave:latest"
+                    workingDir: "/home/jenkins"
+                    ttyEnabled: true
+                    command: "/bin/sh -c"
+                    args: "cat"
+                nodeUsageMode: "NORMAL"
     security:
       remotingCLI:
         enabled: false
@@ -84,7 +101,7 @@ data:
                 script('''
           properties([parameters([booleanParam(defaultValue: false, description: '', name: 'isRelease')])])
 
-          node("jenkins-master") {
+          node() {
             stage("checkout") {
               echo "Checking out..."
             }
