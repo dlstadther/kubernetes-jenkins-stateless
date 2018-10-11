@@ -56,8 +56,8 @@ data:
           users:
             - id: admin
               password: root
-            - id: dillon
-              password: doge
+            - id: doge
+              password: wow
       authorizationStrategy:
         globalMatrix:
           grantedPermissions:
