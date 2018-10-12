@@ -43,7 +43,7 @@ metadata:
 data:
   configuration-as-code.yml: |
     jenkins:
-      systemMessage: "Stateless Jenkins w/ JCasC!"
+      systemMessage: "V3: Stateless Jenkins w/ JCasC!!!"
       labelString: "jenkins-master"
       mode: EXCLUSIVE
       numExecutors: 3
@@ -58,73 +58,12 @@ data:
               password: root
             - id: doge
               password: wow
-      authorizationStrategy:
-        globalMatrix:
-          grantedPermissions:
-            - "Overall/Read:authenticated"
-            - "Job/Read:authenticated"
-            - "View/Read:authenticated"
-            - "Overall/Administer:admin"
-      clouds:
-        - kubernetes:
-            name: "kubernetes"
-            serverUrl: "https://192.168.99.100:8443/"
-            # this jenkinsUrl isn't guaranteed; can (and will) change
-            jenkinsUrl: "http://172.17.0.5:8080/"
-            templates:
-              - name: "jenkins-slave"
-                label: "jenkins-slave"
-                containers:
-                  - name: "jenkins-slave"
-                    image: "jenkinsci/jnlp-slave:latest"
-                    workingDir: "/home/jenkins"
-                    ttyEnabled: true
-                    command: "/bin/sh -c"
-                    args: "cat"
-                nodeUsageMode: "NORMAL"
     security:
       remotingCLI:
         enabled: false
     unclassified:
       location:
         url: http://192.168.99.100:30123/
-    tool:
-      git:
-        installations:
-        - home: "git"
-          name: "Default"
-    jobs:
-      - script: >
-          pipelineJob('CasC - DSL Scripted') {
-            definition {
-              cps {
-                script('''
-          properties([parameters([booleanParam(defaultValue: false, description: '', name: 'isRelease')])])
-
-          node() {
-            stage("checkout") {
-              echo "Checking out..."
-            }
-
-            stage("build") {
-              echo "Building..."
-              sleep 2
-            }
-
-            stage("release") {
-              if(!params?.isRelease) {
-                echo "Release build is not enabled"
-              } else {
-                echo "Release build enabled. Running release."
-                sleep 15
-              }
-            }
-          }
-                ''')
-                sandbox()
-              }
-            }
-          }
 
 ---
 apiVersion: extensions/v1beta1
@@ -159,18 +98,6 @@ spec:
               mountPath: /var/jenkins_home
             - name: jenkins-configuration-as-code
               mountPath: /var/jenkins_config
-          # livenessProbe:
-          #   httpGet:
-          #     path: /login
-          #     port: 8080
-          #   initialDelaySeconds: 60
-          #   timeoutSeconds: 5
-          # readinessProbe:
-          #   httpGet:
-          #     path: /login
-          #     port: 8080
-          #   initialDelaySeconds: 60
-          #   timeoutSeconds: 5
       volumes:
         - name: jenkins-home
           emptyDir: {}
