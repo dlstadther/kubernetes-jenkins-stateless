@@ -13,7 +13,7 @@ cd ~/code/k8s-jenkins/v3/
 
 # BUILD
 eval $(minikube docker-env)
-docker build -t ds/jenkins:2.145 .
+docker build -t ds/jenkins-v3:2.146 .
 
 kubectl apply -f jenkins.yml
 
@@ -24,7 +24,7 @@ echo $(minikube ip):$(kubectl get services/jenkins -o jsonpath='{.spec.ports[0].
 # DELETE
 kubectl delete -f jenkins.yml
 
-docker rmi sample/jenkins:2.143
+docker rmi ds/jenkins-v3:2.146
 
 # STOP
 minikube stop
