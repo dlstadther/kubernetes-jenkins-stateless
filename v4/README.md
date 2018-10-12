@@ -24,7 +24,7 @@ echo $(minikube ip):$(kubectl get services/jenkins -o jsonpath='{.spec.ports[0].
 # DELETE
 kubectl delete -f jenkins.yml
 
-docker rmi sample/jenkins-v4:2.146
+docker rmi ds/jenkins-v4:2.146
 
 # STOP
 minikube stop
