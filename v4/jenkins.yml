@@ -170,8 +170,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-            - name: K8s_POD_URL
-              value: "http://${K8s_POD_IP}:8080/"
           ports:
             - name: http-port
               containerPort: 8080
