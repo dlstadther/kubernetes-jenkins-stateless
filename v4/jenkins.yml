@@ -201,10 +201,6 @@ spec:
             - name: CASC_JENKINS_CONFIG
               # https://github.com/jenkinsci/configuration-as-code-plugin/issues/425
               value: /var/jenkins_config/..data/casc.yml
-            - name: K8s_POD_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
           ports:
             - name: http-port
               containerPort: 8080
