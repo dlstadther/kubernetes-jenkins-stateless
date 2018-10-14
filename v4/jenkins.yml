@@ -63,7 +63,7 @@ data:
       systemMessage: "V3: Stateless Jenkins w/ JCasC!!!"
       labelString: "jenkins-master"
       mode: EXCLUSIVE
-      numExecutors: 3
+      numExecutors: 0
       crumbIssuer: "standard"
       remotingSecurity:
         enabled: true
