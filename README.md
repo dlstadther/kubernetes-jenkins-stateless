@@ -2,6 +2,9 @@
 
 Learning Kubernetes through Jenkins deployments and configurations
 
+## Goal
+Create a completely stateless build server
+
 ## Revisions
 * v1: proof of concept; following blog post; nothing original
 * v2: v1 + refactor; combine into single K8s recipe; add ServiceAccount
