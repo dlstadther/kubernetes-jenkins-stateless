@@ -19,7 +19,7 @@ kubectl apply -f jenkins.yml
 
 # VIEW
 # get http address for jenkins
-echo $(minikube ip):$(kubectl get services/jenkins -o jsonpath='{.spec.ports[0].nodePort}')
+echo $(minikube ip):$(kubectl get services/jenkins-ui -o jsonpath='{.spec.ports[0].nodePort}' --namespace jenkins)
 
 # DELETE
 kubectl delete -f jenkins.yml
