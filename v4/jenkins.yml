@@ -18,13 +18,13 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: jenkins
+  name: jenkins-sa
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: jenkins
+  name: jenkins-role
 rules:
 - apiGroups: [""]
   resources: ["pods"]
@@ -43,22 +43,22 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: jenkins
+  name: jenkins-rbac
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: jenkins
+  name: jenkins-role
 subjects:
 - kind: ServiceAccount
-  name: jenkins
+  name: jenkins-sa
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: jenkins-configuration-as-code
+  name: jcasc
 data:
-  configuration-as-code.yml: |
+  casc.yml: |
     jenkins:
       systemMessage: "V3: Stateless Jenkins w/ JCasC!!!"
       labelString: "jenkins-master"
@@ -156,16 +156,16 @@ spec:
       labels:
         name: jenkins-master
     spec:
-      serviceAccountName: jenkins
+      serviceAccountName: jenkins-sa
       containers:
-        - name: jenkins
+        - name: jenkins-master
           image: ds/jenkins-v4:2.146
           env:
             - name: JAVA_OPTS
               value: -Djenkins.install.runSetupWizard=false -Dhudson.slaves.NodeProvisioner.initialDelay=0
             - name: CASC_JENKINS_CONFIG
               # https://github.com/jenkinsci/configuration-as-code-plugin/issues/425
-              value: /var/jenkins_config/..data/configuration-as-code.yml
+              value: /var/jenkins_config/..data/casc.yml
             - name: K8s_POD_IP
               valueFrom:
                 fieldRef:
@@ -180,7 +180,7 @@ spec:
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
-            - name: jenkins-configuration-as-code
+            - name: jenkins-casc
               mountPath: /var/jenkins_config
           # livenessProbe:
           #   httpGet:
@@ -197,6 +197,6 @@ spec:
       volumes:
         - name: jenkins-home
           emptyDir: {}
-        - name: jenkins-configuration-as-code
+        - name: jenkins-casc
           configMap:
-            name: jenkins-configuration-as-code
+            name: jcasc
