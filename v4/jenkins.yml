@@ -91,6 +91,7 @@ data:
     jenkins:
       systemMessage: "V3: Stateless Jenkins w/ JCasC!!!"
       labelString: jenkins-master
+      quietPeriod: 2
       mode: EXCLUSIVE
       numExecutors: 0
       crumbIssuer: standard
