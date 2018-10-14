@@ -43,7 +43,7 @@ jobs:
 If you only add this to your `jcasc.yml` and apply it to your Jenkins instance, you'll get an error related to `jobs` being an unknown element of JCasC. This is resolved by adding the plugin `job-dsl`.
 
 ## JCasC - kubernetes executors
-Version 1 of this project included a manual setup of Jenkins' Kubernetes executors. My desire to automate that setup is ultimately what led me up through this project revision. However, I didn't realize how complicated it was going to get to reach the goal of automating this portion of Jenkins' configuration.
+Earlier versions of this project included a manual setup of Jenkins' Kubernetes executors. My desire to automate that setup is ultimately what led me up through this project revision. However, I didn't realize how complicated it was going to get to reach the goal of automating this portion of Jenkins' configuration.
 
 But wait, can't this just be included in the JCasC config and be good to go?! Well, yes. Sort of.
 
