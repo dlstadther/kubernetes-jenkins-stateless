@@ -1,6 +1,12 @@
-Jenkins/K8s
+# Jenkins/K8s
 
 Learning Kubernetes through Jenkins deployments and configurations
+
+## Revisions
+* v1: proof of concept; following blog post; nothing original
+* v2: v1 + refactor; combine into single K8s recipe; add ServiceAccount
+* v3: v2 + JCasC Plugin; add Role; add ConfigMap; resolve Jenkins security warnings
+* v4: v3 + K8s executors; utilize K8s DNS; add non-default namespace
 
 ## Resources
 * General
