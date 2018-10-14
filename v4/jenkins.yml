@@ -2,11 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: jenkins-svc
+  name: jenkins-ui
+  namespace: default
 spec:
   type: NodePort
   ports:
-    - name: http
+    - name: ui
       port: 8080
       targetPort: 8080
       nodePort: 30123
@@ -19,12 +20,14 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: jenkins-sa
+  namespace: default
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: jenkins-role
+  namespace: default
 rules:
 - apiGroups: [""]
   resources: ["pods"]
@@ -44,6 +47,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: jenkins-rbac
+  namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -57,14 +61,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: jcasc
+  namespace: default
 data:
   casc.yml: |
     jenkins:
       systemMessage: "V3: Stateless Jenkins w/ JCasC!!!"
-      labelString: "jenkins-master"
+      labelString: jenkins-master
       mode: EXCLUSIVE
       numExecutors: 0
-      crumbIssuer: "standard"
+      crumbIssuer: standard
       remotingSecurity:
         enabled: true
       securityRealm:
@@ -84,21 +89,25 @@ data:
             - "Overall/Administer:admin"
       clouds:
         - kubernetes:
-            name: "kubernetes"
-            serverUrl: "https://192.168.99.100:8443/"
-            # this jenkinsUrl isn't guaranteed; can (and will) change
-            jenkinsUrl: "http://${K8s_POD_IP}:8080/"
+            name: kubernetes
+            namespace: default
+            skipTlsVerify: true
+            serverUrl: https://kubernetes.default
+            jenkinsUrl: http://jenkins-ui.default:8080
+            # jenkinsTunnel: jenkins-discovery.default:5000
+            containerCapStr: 10
             templates:
-              - name: "jenkins-slave"
-                label: "jenkins-slave"
+              - name: jenkins-slave
+                namespace: default
+                label: jenkins-slave
                 containers:
-                  - name: "jenkins-slave"
-                    image: "jenkinsci/jnlp-slave:latest"
+                  - name: jenkins-slave
+                    image: jenkinsci/jnlp-slave:latest
                     workingDir: "/home/jenkins"
                     ttyEnabled: true
                     command: "/bin/sh -c"
                     args: "cat"
-                nodeUsageMode: "NORMAL"
+                nodeUsageMode: NORMAL
     security:
       remotingCLI:
         enabled: false
@@ -148,6 +157,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: jenkins-master
+  namespace: default
 spec:
   replicas: 1
   template:
