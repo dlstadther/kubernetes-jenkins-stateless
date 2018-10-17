@@ -1,27 +1,5 @@
 There's no better way to learn a new technology than through a userful example. [Jenkins](https://jenkins.io/) has the ability to be integrated with [Kubernetes (K8s)](https://kubernetes.io/) to enable dynamic creation of executor Pods. The following content traces my day through learning K8s by deployment a super-charged, flexible Jenkins build server.
 
-## Install Requirements (Mac)
-```shell
-# Hypervisor
-$ brew cask install virtualbox
-
-# KubeCtl
-$ brew install kubernetes-cli
-
-# Minikube
-$ brew install minikube
-```
-
-```shell
-# Starting a local k8s cluster in a VM
-$ minikube start
-
-# Verify
-$ kubectl version
-$ kubectl cluster-info
-```
-
-
 # Jenkins Pod
 
 For a non-trivial example, I wanted to deploy scalable Jenkins within Kubernetes on MiniKube. I followed [this blog post (2018-03-05)](https://www.blazemeter.com/blog/how-to-setup-scalable-jenkins-on-top-of-a-kubernetes-cluster).
