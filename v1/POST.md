@@ -1,4 +1,4 @@
-There's no better way to learn a new technology than through a userful example. [Jenkins](https://jenkins.io/) has the ability to be integrated with [Kubernetes (K8s)](https://kubernetes.io/) to enable dynamic creation of executor Pods. The following content traces my day through learning K8s by deployment a super-charged, flexible Jenkins build server.
+There's no better way to learn a new technology than through a useful example. [Jenkins](https://jenkins.io/) has the ability to be integrated with [Kubernetes (K8s)](https://kubernetes.io/) to enable dynamic creation of executor Pods. The following content traces my day through learning K8s by deployment a super-charged, flexible Jenkins build server.
 
 # Jenkins Pod
 
