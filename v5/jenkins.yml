@@ -175,6 +175,31 @@ data:
               }
             }
           }
+      - script: >
+          pipelineJob('CasC - DSL Scripted 1') {
+            definition {
+              cps {
+                script('''
+          node {
+            stage("checkout") {
+              echo "Checking out..."
+            }
+
+            stage("build") {
+              echo "Building..."
+              sleep 2
+            }
+
+            stage("release") {
+              echo "Release build enabled. Running release."
+              sleep 15
+            }
+          }
+                ''')
+                sandbox()
+              }
+            }
+          }
 
 ---
 apiVersion: extensions/v1beta1
