@@ -18,7 +18,6 @@ spec:
     - name: ui
       port: 8080
       targetPort: 8080
-      nodePort: 30123
       protocol: TCP
   selector:
     name: jenkins-master
