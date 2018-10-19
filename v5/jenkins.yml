@@ -145,13 +145,13 @@ data:
           name: "Default"
     jobs:
       - script: >
-          pipelineJob('CasC - DSL Scripted') {
+          pipelineJob('CasC - DSL Scripted 0') {
             definition {
               cps {
                 script('''
           properties([parameters([booleanParam(defaultValue: false, description: '', name: 'isRelease')])])
 
-          node() {
+          node {
             stage("checkout") {
               echo "Checking out..."
             }
