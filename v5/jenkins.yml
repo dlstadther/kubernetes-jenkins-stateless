@@ -200,6 +200,35 @@ data:
               }
             }
           }
+      - script: >
+          pipelineJob('CasC - DSL Declarative 0') {
+            definition {
+              cps {
+                script('''
+          pipeline {
+            agent any
+            options {
+              timeout(time: 30, unit: 'MINUTES')
+              timestamps()
+            }
+            stages {
+              stage ('build') {
+                steps {
+                  sh "sleep 2"
+                }
+              }
+              stage ('deploy:prod') {
+                steps {
+                  sh"sleep 15"
+                }
+              }
+            }
+          }
+                ''')
+                sandbox()
+              }
+            }
+          }
 
 ---
 apiVersion: extensions/v1beta1
