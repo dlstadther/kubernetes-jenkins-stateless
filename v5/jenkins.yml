@@ -116,9 +116,9 @@ data:
             name: kubernetes
             namespace: jenkins
             skipTlsVerify: true
-            serverUrl: https://kubernetes.default
-            jenkinsUrl: http://jenkins-ui.jenkins:8080
-            jenkinsTunnel: jenkins-discovery.jenkins:50000
+            serverUrl: https://kubernetes.default.svc.cluster.local
+            jenkinsUrl: http://jenkins-ui.jenkins.svc.cluster.local:8080
+            jenkinsTunnel: jenkins-discovery.jenkins.svc.cluster.local:50000
             containerCapStr: 10
             templates:
               - name: jenkins-slave
