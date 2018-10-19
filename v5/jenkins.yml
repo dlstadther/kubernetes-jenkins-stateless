@@ -88,7 +88,7 @@ metadata:
 data:
   casc.yml: |
     jenkins:
-      systemMessage: "V3: Stateless Jenkins w/ JCasC!!!"
+      systemMessage: "V5: Stateless Jenkins w/ JCasC!!!"
       labelString: jenkins-master
       quietPeriod: 2
       mode: EXCLUSIVE
