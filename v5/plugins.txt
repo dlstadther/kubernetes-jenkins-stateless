@@ -1,0 +1,12 @@
+command-launcher:1.2
+configuration-as-code:1.1
+configuration-as-code-support:1.1
+credentials:2.1.18
+github-oauth:0.29
+jdk-tool:1.1
+job-dsl:1.70
+kubernetes:1.12.6
+matrix-auth:2.3
+ssh-slaves:1.28.1
+timestamper:1.8.10
+workflow-aggregator:2.6
