@@ -232,8 +232,8 @@ data:
             }
           }
       - script: >
-          pipelineJob('CasC - DSL Declarative - Luigi') {
-            displayName("Spotify/Luigi")
+          pipelineJob('spotify-luigi') {
+            displayName("spotify-luigi")
             description("Build environment for Spotify's Luigi")
             logRotator {
               numToKeep(5)
