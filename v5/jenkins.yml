@@ -92,7 +92,7 @@ data:
       labelString: jenkins-master
       quietPeriod: 2
       mode: EXCLUSIVE
-      numExecutors: 0
+      numExecutors: 1
       crumbIssuer: standard
       remotingSecurity:
         enabled: true
@@ -151,7 +151,7 @@ data:
                 script('''
           properties([parameters([booleanParam(defaultValue: false, description: '', name: 'isRelease')])])
 
-          node {
+          node('jenkins-slave') {
             stage("checkout") {
               echo "Checking out..."
             }
@@ -180,7 +180,7 @@ data:
             definition {
               cps {
                 script('''
-          node {
+          node('jenkins-slave') {
             stage("checkout") {
               echo "Checking out..."
             }
@@ -206,7 +206,9 @@ data:
               cps {
                 script('''
           pipeline {
-            agent any
+            agent {
+              label 'jenkins-slave'
+            }
             options {
               timeout(time: 30, unit: 'MINUTES')
               timestamps()
@@ -246,7 +248,9 @@ data:
               cps {
                 script('''
           pipeline {
-            agent any
+            agent {
+              label 'jenkins-master'
+            }
             options {
               timeout(time: 30, unit: 'MINUTES')
               timestamps()
