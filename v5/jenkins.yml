@@ -261,6 +261,28 @@ data:
                   git url: 'https://github.com/spotify/luigi.git', branch: 'master'
                 }
               }
+              stage ('build') {
+                steps {
+                  sh """
+                    python -m virtualenv ~/venv
+                    ~/venv/bin/pip install tox
+                  """
+                }
+              }
+              stage ('test-docs') {
+                steps {
+                  sh """
+                    ~/venv/bin/tox -e docs
+                  """
+                }
+              }
+              stage ('test-flake8') {
+                steps {
+                  sh """
+                    ~/venv/bin/tox -e flake8
+                  """
+                }
+              }
               stage ('sleep') {
                 steps {
                   sleep params?.SleepTime
