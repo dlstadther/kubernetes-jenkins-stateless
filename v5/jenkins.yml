@@ -89,7 +89,7 @@ data:
   casc.yml: |
     jenkins:
       systemMessage: "V5: Stateless Jenkins w/ JCasC!!!"
-      labelString: jenkins-master
+      labelString: master
       quietPeriod: 2
       mode: EXCLUSIVE
       numExecutors: 1
@@ -121,11 +121,11 @@ data:
             jenkinsTunnel: jenkins-discovery.jenkins.svc.cluster.local:50000
             containerCapStr: 10
             templates:
-              - name: jenkins-slave
+              - name: slave-default
                 namespace: jenkins
-                label: jenkins-slave
+                label: slave-default
                 containers:
-                  - name: jenkins-slave
+                  - name: slave-default
                     image: jenkinsci/jnlp-slave:latest
                     workingDir: "/home/jenkins"
                     ttyEnabled: true
@@ -151,7 +151,7 @@ data:
                 script('''
           properties([parameters([booleanParam(defaultValue: false, description: '', name: 'isRelease')])])
 
-          node('jenkins-slave') {
+          node('slave-default') {
             stage("checkout") {
               echo "Checking out..."
             }
@@ -180,7 +180,7 @@ data:
             definition {
               cps {
                 script('''
-          node('jenkins-slave') {
+          node('slave-default') {
             stage("checkout") {
               echo "Checking out..."
             }
@@ -207,7 +207,7 @@ data:
                 script('''
           pipeline {
             agent {
-              label 'jenkins-slave'
+              label 'slave-default'
             }
             options {
               timeout(time: 30, unit: 'MINUTES')
@@ -249,7 +249,7 @@ data:
                 script('''
           pipeline {
             agent {
-              label 'jenkins-master'
+              label 'master'
             }
             options {
               timeout(time: 30, unit: 'MINUTES')
