@@ -239,7 +239,7 @@ data:
               numToKeep(5)
             }
             parameters {
-              choiceParam('SleepTime', [0, 1, 5, 10])
+              choiceParam('SleepTime', [0, 1, 5, 10], "Duration to sleep")
             }
             properties {
               githubProjectUrl('https://github.com/spotify/luigi.git')
