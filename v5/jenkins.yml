@@ -269,13 +269,6 @@ data:
                   """
                 }
               }
-              stage ('test-docs') {
-                steps {
-                  sh """
-                    ~/venv/bin/tox -e docs
-                  """
-                }
-              }
               stage ('test-flake8') {
                 steps {
                   sh """
