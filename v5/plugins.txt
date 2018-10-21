@@ -1,6 +1,6 @@
 command-launcher:1.2
-configuration-as-code:1.1
-configuration-as-code-support:1.1
+configuration-as-code:1.2
+configuration-as-code-support:1.2
 credentials:2.1.18
 github-oauth:0.29
 jdk-tool:1.1
