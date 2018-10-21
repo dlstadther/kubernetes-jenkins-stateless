@@ -10,6 +10,7 @@ Create a completely stateless build server
 * v2: v1 + refactor; combine into single K8s recipe; add ServiceAccount
 * v3: v2 + JCasC Plugin; add Role; add ConfigMap; resolve Jenkins security warnings
 * v4: v3 + K8s executors; utilize K8s DNS; add non-default namespace
+* v5: v4 + multi-job setup and syntax
 
 ## Resources
 * General
