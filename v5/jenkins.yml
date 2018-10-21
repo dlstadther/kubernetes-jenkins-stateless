@@ -261,7 +261,7 @@ data:
                   git url: 'https://github.com/spotify/luigi.git', branch: 'master'
                 }
               }
-              stage ('build') {
+              stage ('prepare venv') {
                 steps {
                   sh """
                     python -m virtualenv ~/venv
