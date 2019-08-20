@@ -8,6 +8,6 @@ $ brew cask install virtualbox
 $ brew install kubernetes-cli
 
 # Minikube
-$ brew install minikube
+$ brew cask install minikube
 $ brew cask reinstall minikube
 ```
